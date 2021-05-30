@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Валентин Ердяков](https://up.htmlacademy.ru/javascript/23/user/1085399).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Дроганов](https://htmlacademy.ru/profile/dmdragon).
 
 ---
 
