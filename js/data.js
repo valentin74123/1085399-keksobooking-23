@@ -8,6 +8,14 @@ const TYPES = [
   'hotel',
 ];
 
+const TYPES_TRANSLATED = [
+  'Квартира',
+  'Бунгало',
+  'Дом',
+  'Дворец',
+  'Отель',
+];
+
 const CHECKIN = [
   '12:00',
   '13:00',
@@ -35,6 +43,8 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const SIMILAR_OFFERS_COUNT = 10;
+
 const getRandomArrayElement = (elements) => elements[randomizeNumber(0, elements.length - 1)];
 
 const getRandomAvatar = () => {
@@ -59,6 +69,10 @@ const deleteRepetitions = (array) => {
   return result;
 };
 
+const translatedOfferTypes = new Map();
+for (let num = 0; num < TYPES.length; num++) {
+  translatedOfferTypes.set(TYPES[num], TYPES_TRANSLATED[num]);
+}
 
 const createOffer = () => {
   const getRandomOfferLocation = {
@@ -68,7 +82,7 @@ const createOffer = () => {
 
   const getRandomPhotosArray = new Array(randomizeNumber(1, 5)).fill(null).map(() => getRandomArrayElement(PHOTOS));
 
-  const getRandomFeaturesArray = new Array(randomizeNumber(1, 6)).fill(null).map(() => getRandomArrayElement(FEATURES));
+  const getRandomFeaturesArray = new Array(randomizeNumber(1, 6)).fill().map(() => getRandomArrayElement(FEATURES));
 
   return {
     author: {
@@ -78,7 +92,7 @@ const createOffer = () => {
       title: 'заголовок предложения',
       address: `${getRandomOfferLocation.lat}, ${getRandomOfferLocation.lng}`,
       price: randomizeNumber(1, 10000),
-      type: getRandomArrayElement(TYPES),
+      type: translatedOfferTypes.get(getRandomArrayElement(TYPES)),
       rooms: randomizeNumber(1, 10),
       guests: randomizeNumber(1, 10),
       checkin: getRandomArrayElement(CHECKIN),
@@ -94,4 +108,6 @@ const createOffer = () => {
   };
 };
 
-export {createOffer};
+const createOffers = () => new Array(SIMILAR_OFFERS_COUNT).fill(null).map(() => createOffer());
+
+export {createOffers};
