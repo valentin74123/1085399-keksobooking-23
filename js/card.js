@@ -1,11 +1,11 @@
 import {createOffers} from './data.js';
 
 const cardOffersElement = document.querySelector('#map-canvas');
-const cardOffersTemplate = document.querySelector('#card').content.querySelector('.popup');
-
 const cardOffers = createOffers();
 
-cardOffers.forEach(({author: {avatar}, offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}}) => {
+const renderCard = ({author: {avatar}, offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}}) => {
+  const cardOffersTemplate = document.querySelector('#card').content.querySelector('.popup');
+
   const offerElement = cardOffersTemplate.cloneNode(true);
 
   offerElement.querySelector('.popup__title').textContent = title;
@@ -36,8 +36,8 @@ cardOffers.forEach(({author: {avatar}, offer: {title, address, price, type, room
   });
   photoElement.parentNode.removeChild(photoElement);
 
-
   offerElement.querySelector('.popup__avatar').src = avatar;
-
   cardOffersElement.appendChild(offerElement);
-});
+};
+
+renderCard(cardOffers[0]);
