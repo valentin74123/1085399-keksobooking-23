@@ -62,6 +62,14 @@ const countRoomsAndSeats = () => {
   }
 
   numberOfSeats.reportValidity();
+
+  if ((numberOfSeatsOption !== '0' && roomNumberOption === '100') || (numberOfSeatsOption === '0' && roomNumberOption !== '100')) {
+    roomNumber.setCustomValidity('100 комнат не для гостей!');
+  } else {
+    roomNumber.setCustomValidity('');
+  }
+
+  roomNumber.reportValidity();
 };
 
 roomNumber.addEventListener('change', () => countRoomsAndSeats());
