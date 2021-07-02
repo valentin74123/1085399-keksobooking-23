@@ -1,9 +1,4 @@
-import {createOffers} from './data.js';
-
-const cardOffersElement = document.querySelector('#map-canvas');
-const cardOffers = createOffers();
-
-const renderCard = ({author: {avatar}, offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}}) => {
+export const renderCard = ({author: {avatar}, offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}}) => {
   const cardOffersTemplate = document.querySelector('#card').content.querySelector('.popup');
 
   const offerElement = cardOffersTemplate.cloneNode(true);
@@ -37,7 +32,6 @@ const renderCard = ({author: {avatar}, offer: {title, address, price, type, room
   photoElement.parentNode.removeChild(photoElement);
 
   offerElement.querySelector('.popup__avatar').src = avatar;
-  cardOffersElement.appendChild(offerElement);
-};
 
-renderCard(cardOffers[0]);
+  return offerElement;
+};
