@@ -16,4 +16,20 @@ const randomizNumberWithFloatingPoint = (firstNumber, secondNumber, floatPoint =
   return result.toFixed(floatPoint);
 };
 
-export {randomizeNumber, randomizNumberWithFloatingPoint};
+const formDisabled = (form, disabledClass) => {
+  for (let id = 0; id < form.length; ++id) {
+    form[id].setAttribute('disabled', 'disabled');
+  }
+
+  form.classList.add(disabledClass);
+};
+
+const formActive = (form, disabledClass) => {
+  for (let id = 0; id < form.length; ++id) {
+    form[id].removeAttribute('disabled');
+  }
+
+  form.classList.remove(disabledClass);
+};
+
+export {randomizeNumber, randomizNumberWithFloatingPoint, formDisabled, formActive};
