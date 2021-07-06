@@ -1,6 +1,6 @@
 import {renderCard} from './card.js';
 import {getData} from './api.js';
-import {statusPage, failLoadData} from './util.js';
+import {statusPage, showAlert, formDisabled} from './util.js';
 
 const SIMILAR_OFFERS_COUNT = 10;
 
@@ -84,6 +84,11 @@ const createMarker = (card) => {
     );
 };
 
+const mapFilters = document.querySelector('.map__filters');
+const failLoadData = () => {
+  showAlert('Ошибка загрузки данных с сервера');
+  formDisabled(mapFilters, 'map__filters--disabled');
+};
 
 getData(
   (offers) => {
@@ -95,7 +100,7 @@ getData(
 );
 
 
-export const resetMap = () => {
+const resetMap = () => {
   mainPinMarker.setLatLng(TokyoCoords);
 
   map.setView(TokyoCoords, 13);
@@ -103,10 +108,12 @@ export const resetMap = () => {
   addresCoords(address, TokyoCoords);
 };
 
-export const removeMap = () => {
+const removeMap = () => {
   mainPinMarker.remove();
 
   markerGroup.clearLayers();
 
   map.remove();
 };
+
+export {resetMap, removeMap};

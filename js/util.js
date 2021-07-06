@@ -4,10 +4,6 @@ const statusPage = {
   load: false,
 };
 
-const statusData = {
-  load: true,
-};
-
 const randomizeNumber = (firstNumber, secondNumber) => {
   const lower = Math.ceil(Math.min(Math.abs(firstNumber), Math.abs(secondNumber)));
   const upper = Math.floor(Math.max(Math.abs(firstNumber), Math.abs(secondNumber)));
@@ -74,9 +70,4 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-const failLoadData = () => {
-  showAlert('Ошибка загрузки данных с сервера');
-  statusData.load = false;
-};
-
-export {randomizeNumber, randomizNumberWithFloatingPoint, statusPage, statusData, formDisabled, formActive, closeModalWindow, failLoadData};
+export {randomizeNumber, randomizNumberWithFloatingPoint, statusPage, formDisabled, formActive, closeModalWindow, showAlert};
