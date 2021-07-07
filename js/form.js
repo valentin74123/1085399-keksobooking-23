@@ -22,7 +22,8 @@ const resetPage = () => {
 };
 
 const resetButton = document.querySelector('.ad-form__reset');
-resetButton.addEventListener('click', () => {
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
   resetPage();
 });
 

@@ -1,5 +1,7 @@
+const API = 'https://23.javascript.pages.academy/';
+
 const getData = (onSuccess, onFail) => {
-  fetch('https://23.javascript.pages.academy/keksobooking/data')
+  fetch(`${API}keksobooking/data`)
     .then((response) => response.json())
     .then((data) => onSuccess(data))
     .catch(() => onFail());
@@ -7,7 +9,7 @@ const getData = (onSuccess, onFail) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://23.javascript.pages.academy/keksobooking',
+    `${API}keksobooking`,
     {
       method: 'POST',
       body,
