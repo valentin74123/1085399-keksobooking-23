@@ -11,25 +11,34 @@ export const renderCard = ({author: {avatar}, offer: {title, address, price, typ
   offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
 
   const featuresListElement = offerElement.querySelector('.popup__features');
-  const modifiers = features.map((feature) => `popup__feature--${feature}`);
-  featuresListElement.querySelectorAll('.popup__feature').forEach((item) => {
-    const modifier = item.classList[1];
+  if(features !== undefined) {
+    const modifiers = features.map((feature) => `popup__feature--${feature}`);
+    featuresListElement.querySelectorAll('.popup__feature').forEach((item) => {
+      const modifier = item.classList[1];
 
-    if(!modifiers.includes(modifier)) {
-      item.remove();
-    }
-  });
+      if(!modifiers.includes(modifier)) {
+        item.remove();
+      }
+    });
+  } else {
+    featuresListElement.remove();
+  }
 
   offerElement.querySelector('.popup__description').textContent = description;
 
   const photosListElement = offerElement.querySelector('.popup__photos');
-  const photoElement = photosListElement.querySelector('.popup__photo');
-  photos.map((src) => {
-    const photo = photoElement.cloneNode(true);
-    photo.src = src;
-    photosListElement.appendChild(photo);
-  });
-  photoElement.parentNode.removeChild(photoElement);
+  if(photos !== undefined) {
+
+    const photoElement = photosListElement.querySelector('.popup__photo');
+    photos.map((src) => {
+      const photo = photoElement.cloneNode(true);
+      photo.src = src;
+      photosListElement.appendChild(photo);
+    });
+    photoElement.parentNode.removeChild(photoElement);
+  } else {
+    photosListElement.remove();
+  }
 
   offerElement.querySelector('.popup__avatar').src = avatar;
 

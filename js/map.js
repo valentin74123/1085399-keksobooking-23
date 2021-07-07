@@ -1,5 +1,8 @@
-import {createOffers} from './data.js';
 import {renderCard} from './card.js';
+import {getData} from './api.js';
+import {statusPage, showAlert, formDisabled} from './util.js';
+
+const SIMILAR_OFFERS_COUNT = 10;
 
 const FLOAT_POINT = 5;
 
@@ -8,19 +11,15 @@ const TokyoCoords = {
   lng: 139.74741,
 };
 
-export const statusPage = {
-  load: false,
-};
-
-const addresCoords = (coords) => {
-  const address = document.querySelector('#address');
-  address.value = `${coords.lat.toFixed(FLOAT_POINT)}, ${coords.lng.toFixed(FLOAT_POINT)}`;
+const address = document.querySelector('#address');
+const addresCoords = (addressInput, coords) => {
+  addressInput.value = `${coords.lat.toFixed(FLOAT_POINT)}, ${coords.lng.toFixed(FLOAT_POINT)}`;
 };
 
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    addresCoords(TokyoCoords);
+    addresCoords(address, TokyoCoords);
     statusPage.load = true;
   })
   .setView(TokyoCoords, 13);
@@ -51,10 +50,9 @@ mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
   const coords = evt.target.getLatLng();
-  addresCoords(coords);
+  addresCoords(address, coords);
 });
 
-const cardOffers = createOffers();
 
 const markerGroup = L.layerGroup().addTo(map);
 
@@ -86,21 +84,36 @@ const createMarker = (card) => {
     );
 };
 
-cardOffers.forEach((card) => {
-  createMarker(card);
-});
+const mapFilters = document.querySelector('.map__filters');
+const failLoadData = () => {
+  showAlert('Ошибка загрузки данных с сервера');
+  formDisabled(mapFilters, 'map__filters--disabled');
+};
+
+getData(
+  (offers) => {
+    offers.slice(0, SIMILAR_OFFERS_COUNT).forEach((card) => {
+      createMarker(card);
+    });
+  },
+  failLoadData,
+);
 
 
-export const resetMap = () => {
+const resetMap = () => {
   mainPinMarker.setLatLng(TokyoCoords);
 
   map.setView(TokyoCoords, 13);
+
+  addresCoords(address, TokyoCoords);
 };
 
-export const removeMap = () => {
+const removeMap = () => {
   mainPinMarker.remove();
 
   markerGroup.clearLayers();
 
   map.remove();
 };
+
+export {resetMap, removeMap};

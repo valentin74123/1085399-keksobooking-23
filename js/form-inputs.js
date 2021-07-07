@@ -74,3 +74,5 @@ const countRoomsAndSeats = () => {
 
 roomNumber.addEventListener('change', () => countRoomsAndSeats());
 numberOfSeats.addEventListener('change', () => countRoomsAndSeats());
+
+export {priceValue};
