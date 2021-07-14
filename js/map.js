@@ -1,8 +1,11 @@
 import {renderCard} from './card.js';
 import {getData} from './api.js';
-import {statusPage, showAlert, formDisabled} from './util.js';
+import {statusPage, showAlert, formDisabled, debounce} from './util.js';
+import {compareOffers, setOffersFilter} from './filters.js';
 
 const SIMILAR_OFFERS_COUNT = 10;
+
+const TIMEOUT_DELAY = 500;
 
 const FLOAT_POINT = 5;
 
@@ -84,17 +87,25 @@ const createMarker = (card) => {
     );
 };
 
+
 const mapFilters = document.querySelector('.map__filters');
 const failLoadData = () => {
   showAlert('Ошибка загрузки данных с сервера');
   formDisabled(mapFilters, 'map__filters--disabled');
 };
 
+const renderOffersList = (offers) => {
+  map.closePopup();
+  markerGroup.clearLayers();
+  offers.slice().sort(compareOffers).slice(0, SIMILAR_OFFERS_COUNT).forEach((card) => {
+    createMarker(card);
+  });
+};
+
 getData(
   (offers) => {
-    offers.slice(0, SIMILAR_OFFERS_COUNT).forEach((card) => {
-      createMarker(card);
-    });
+    renderOffersList(offers);
+    setOffersFilter(debounce(() => renderOffersList(offers), TIMEOUT_DELAY));
   },
   failLoadData,
 );

@@ -70,4 +70,23 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {randomizeNumber, randomizNumberWithFloatingPoint, statusPage, formDisabled, formActive, closeModalWindow, showAlert};
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+const getChekedInputValues = (selector) => {
+  const chekedValues = [];
+
+  const filterFeatures = document.querySelectorAll(selector);
+
+  filterFeatures.forEach((features) => chekedValues.push(features.value));
+
+  return chekedValues;
+};
+
+export {randomizeNumber, randomizNumberWithFloatingPoint, statusPage, formDisabled, formActive, closeModalWindow, showAlert, debounce, getChekedInputValues};
