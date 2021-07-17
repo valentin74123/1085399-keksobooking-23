@@ -44,7 +44,10 @@ fileChooserOfferPhoto.addEventListener('change', () => {
 
 const resetImages = () => {
   previewAvatar.src = DEFAULT_AVATAR_IMAGE;
-  previewOfferPhoto.children[0].remove();
+
+  if(previewOfferPhoto.children[0]) {
+    previewOfferPhoto.children[0].remove();
+  }
 };
 
 export {resetImages};
