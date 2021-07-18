@@ -2,6 +2,7 @@ import {statusPage, formDisabled, formActive, closeModalWindow} from './util.js'
 import {removeMap, resetMap} from './map.js';
 import {sendData} from './api.js';
 import {priceValue} from './form-inputs.js';
+import {resetImages} from './images-preview.js';
 
 const mapFilters = document.querySelector('.map__filters');
 const addForm = document.querySelector('.ad-form');
@@ -19,6 +20,7 @@ const resetPage = () => {
   addForm.reset();
   resetMap();
   priceValue('1000', 1000);
+  resetImages();
 };
 
 const resetButton = document.querySelector('.ad-form__reset');
