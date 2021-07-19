@@ -1,3 +1,23 @@
+const TRANSLATION_OF_TYPES = {
+  bungalow: 'Бунгало',
+  flat: 'Квартира',
+  hotel: 'Отель',
+  house: 'Дом',
+  palace: 'Дворец',
+};
+
+const translateType = (type) => {
+  const translation = [];
+
+  Object.entries(TRANSLATION_OF_TYPES).forEach((arr) => {
+    if (arr[0] === String(type)) {
+      translation.push(arr[1]);
+    }
+  });
+
+  return translation;
+};
+
 export const renderCard = ({author: {avatar}, offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}}) => {
   const cardOffersTemplate = document.querySelector('#card').content.querySelector('.popup');
 
@@ -6,7 +26,7 @@ export const renderCard = ({author: {avatar}, offer: {title, address, price, typ
   offerElement.querySelector('.popup__title').textContent = title;
   offerElement.querySelector('.popup__text--address').textContent = address;
   offerElement.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
-  offerElement.querySelector('.popup__type').textContent = type;
+  offerElement.querySelector('.popup__type').textContent = translateType(type);
   offerElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
   offerElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
 

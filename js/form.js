@@ -18,6 +18,7 @@ if(statusPage.load === false) {
 
 const resetPage = () => {
   addForm.reset();
+  mapFilters.reset();
   resetMap();
   priceValue('1000', 1000);
   resetImages();

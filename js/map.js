@@ -117,6 +117,13 @@ const resetMap = () => {
   map.setView(TokyoCoords, 13);
 
   addresCoords(address, TokyoCoords);
+
+  getData(
+    (offers) => {
+      renderOffersList(offers);
+    },
+    failLoadData,
+  );
 };
 
 const removeMap = () => {
