@@ -1,3 +1,9 @@
+const BUNGALOW_MIN_PRICE_VALUE = 0;
+const FLAT_MIN_PRICE_VALUE = 1000;
+const HOTEL_MIN_PRICE_VALUE = 3000;
+const HOUSE_MIN_PRICE_VALUE = 5000;
+const PALACE_MIN_PRICE_VALUE = 10000;
+
 // Заголовок объявления
 const title = document.querySelector('#title');
 
@@ -20,15 +26,15 @@ const changePricePerNight = () => {
   const typeOfHousingOption = typeOfHousing.options[typeOfHousing.selectedIndex].value;
 
   if (typeOfHousingOption === 'bungalow') {
-    priceValue('0', 0);
+    priceValue(String(BUNGALOW_MIN_PRICE_VALUE), BUNGALOW_MIN_PRICE_VALUE);
   } else if (typeOfHousingOption === 'flat') {
-    priceValue('1000', 1000);
+    priceValue(String(FLAT_MIN_PRICE_VALUE), FLAT_MIN_PRICE_VALUE);
   } else if (typeOfHousingOption === 'hotel') {
-    priceValue('3000', 3000);
+    priceValue(String(HOTEL_MIN_PRICE_VALUE), HOTEL_MIN_PRICE_VALUE);
   } else if (typeOfHousingOption === 'house') {
-    priceValue('5000', 5000);
+    priceValue(String(HOUSE_MIN_PRICE_VALUE), HOUSE_MIN_PRICE_VALUE);
   } else if (typeOfHousingOption === 'palace') {
-    priceValue('10000', 10000);
+    priceValue(String(PALACE_MIN_PRICE_VALUE), PALACE_MIN_PRICE_VALUE);
   }
 
   pricePerNight.reportValidity();

@@ -3,6 +3,13 @@ import {getData} from './api.js';
 import {statusPage, showAlert, formDisabled, debounce} from './util.js';
 import {compareOffers, setOffersFilter} from './filters.js';
 
+const MAP_ZOOM = 13;
+
+const MAIN_PIN_SIZE = [52, 52];
+const MAIN_PIN_ANCHOR = [26, 52];
+const PIN_SIZE = [40, 40];
+const PIN_ANCHOR = [20, 40];
+
 const SIMILAR_OFFERS_COUNT = 10;
 
 const TIMEOUT_DELAY = 500;
@@ -25,7 +32,7 @@ const map = L.map('map-canvas')
     addresCoords(address, TokyoCoords);
     statusPage.load = true;
   })
-  .setView(TokyoCoords, 13);
+  .setView(TokyoCoords, MAP_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -37,8 +44,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: MAIN_PIN_SIZE,
+  iconAnchor: MAIN_PIN_ANCHOR,
 });
 
 const mainPinMarker = L.marker(
@@ -64,8 +71,8 @@ const createMarker = (card) => {
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: PIN_SIZE,
+    iconAnchor: PIN_ANCHOR,
   });
 
   const marker = L.marker({
@@ -114,7 +121,7 @@ getData(
 const resetMap = () => {
   mainPinMarker.setLatLng(TokyoCoords);
 
-  map.setView(TokyoCoords, 13);
+  map.setView(TokyoCoords, MAP_ZOOM);
 
   addresCoords(address, TokyoCoords);
 

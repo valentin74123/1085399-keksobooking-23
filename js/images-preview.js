@@ -34,8 +34,8 @@ const previewOfferPhotoImg = document.createElement('img');
 fileChooserOfferPhoto.addEventListener('change', () => {
   previewOfferPhotoImg.style.marginTop = '15px';
   previewOfferPhotoImg.style.marginLeft = '13px';
-  previewOfferPhotoImg.height = 40;
-  previewOfferPhotoImg.width = 44;
+  previewOfferPhotoImg.style.height = '40px';
+  previewOfferPhotoImg.style.width = '44px';
   previewOfferPhoto.appendChild(previewOfferPhotoImg);
 
   previewImg(fileChooserOfferPhoto, previewOfferPhotoImg);

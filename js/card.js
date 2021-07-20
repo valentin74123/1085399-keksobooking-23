@@ -7,15 +7,15 @@ const TRANSLATION_OF_TYPES = {
 };
 
 const translateType = (type) => {
-  const translation = [];
+  const translations = [];
 
   Object.entries(TRANSLATION_OF_TYPES).forEach((arr) => {
     if (arr[0] === String(type)) {
-      translation.push(arr[1]);
+      translations.push(arr[1]);
     }
   });
 
-  return translation;
+  return translations;
 };
 
 export const renderCard = ({author: {avatar}, offer: {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos}}) => {

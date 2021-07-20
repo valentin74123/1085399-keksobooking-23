@@ -38,24 +38,47 @@ const formActive = (form, disabledClass) => {
   form.classList.remove(disabledClass);
 };
 
-const closeModalWindow = (el) => {
-  document.addEventListener('click', () => {
-    document.querySelector(el).remove();
-  }, {once: true});
-  document.addEventListener('keydown', (evt) => {
+const closeModalWindow = (element, button) => {
+  const removeElement = () => {
+    element.remove();
+  };
+
+  const clickEvent = () => {
+    removeElement();
+
+    document.removeEventListener('click', clickEvent);
+  };
+
+  const escEvent = (evt) => {
     if (evt.key === 'Escape') {
-      document.querySelector(el).style.display = 'none';
+      removeElement();
+
+      document.removeEventListener('click', escEvent);
     }
-  }, {once: true});
+  };
+
+  if (button) {
+    const closeButton = () => {
+      removeElement();
+
+      button.removeEventListener('click', closeButton);
+      document.removeEventListener('click', clickEvent);
+    };
+
+    button.addEventListener('click', closeButton);
+  }
+
+  document.addEventListener('click', clickEvent);
+  document.addEventListener('keydown', escEvent);
 };
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
+  alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
   alertContainer.style.padding = '10px 3px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';

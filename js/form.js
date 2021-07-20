@@ -4,6 +4,8 @@ import {sendData} from './api.js';
 import {priceValue} from './form-inputs.js';
 import {resetImages} from './images-preview.js';
 
+const DEFAULT_PRICE_VALUE = 1000;
+
 const mapFilters = document.querySelector('.map__filters');
 const addForm = document.querySelector('.ad-form');
 
@@ -20,7 +22,7 @@ const resetPage = () => {
   addForm.reset();
   mapFilters.reset();
   resetMap();
-  priceValue('1000', 1000);
+  priceValue(String(DEFAULT_PRICE_VALUE), DEFAULT_PRICE_VALUE);
   resetImages();
 };
 
@@ -31,19 +33,20 @@ resetButton.addEventListener('click', (evt) => {
 });
 
 
-const modalWindowFormAccept = function () {
+const modalWindowFormAccept = () => {
   const success = document.querySelector('#success');
 
   const clone = success.content.cloneNode(true);
 
   document.body.appendChild(clone);
 
-  closeModalWindow('.success');
+  const successElement = document.querySelector('.success');
+  closeModalWindow(successElement);
 
   resetPage();
 };
 
-const modalWindowFormError = function () {
+const modalWindowFormError = () => {
   const error = document.querySelector('#error');
 
   const clone = error.content.cloneNode(true);
@@ -52,11 +55,8 @@ const modalWindowFormError = function () {
 
   const errorButton = document.querySelector('.error__button');
 
-  errorButton.addEventListener('click', () => {
-    document.querySelector('.error').remove();
-  }, {once: true});
-
-  closeModalWindow('.error');
+  const errorElement = document.querySelector('.error');
+  closeModalWindow(errorElement, errorButton);
 };
 
 
